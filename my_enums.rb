@@ -2,6 +2,8 @@
 
 # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
 
+# Enumerable module modified to fit the personal methods that were developed.
+
 module Enumerable
   def my_each
     length.times do |n|
