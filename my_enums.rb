@@ -1,15 +1,15 @@
-module Enumerable
+# frozen_string_literal: true
 
+module Enumerable
   def my_each
-    (self.length).times do |n|
+    self.length.times do |n|
       current = self[n]
       yield(current)
     end
   end
 
-
   def my_each_with_index
-    (self.length).times do |n|
+    self.length.times do |n|
       index = n
       current = self[n]
       yield(index,current)
