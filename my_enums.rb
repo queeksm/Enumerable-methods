@@ -1,10 +1,8 @@
-#:nodoc: all
-
 # frozen_string_literal: true
 
 # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
 
-module Enumerable
+module Enumerable #:nodoc: all
   def my_each
     length.times do |n|
       current = self[n]
