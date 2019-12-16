@@ -1,6 +1,6 @@
-# frozen_string_literal: true
-
 #:nodoc:
+
+# frozen_string_literal: true
 
 # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
 
