@@ -53,7 +53,7 @@ module Enumerable
   def my_count(item = 'CANTOR')
     count = 0
     if item == 'CANTOR'
-      count = self.length
+      count = length
     else
       my_each do |n|
         count += 1 if n == item
@@ -65,11 +65,7 @@ module Enumerable
   def my_map_one
     emp_arr = []
     my_each do |n|
-      if yield(n)
-        emp_arr << true
-      else
-        emp_arr << false
-      end
+      emp_arr << yield(n)
     end
     emp_arr
   end
@@ -115,5 +111,5 @@ module Enumerable
 end
 
 
-  puts "#{[1,23,3].my_each {|num| num*3}}"
+  puts "#{[1,26,3,7].my_map_one {|n| n.odd?}}"
   
