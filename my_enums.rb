@@ -91,24 +91,20 @@ module Enumerable
   end
 
   def my_inject(inivalue = nil, symbol = nil)
-    if inivalue != nil && symbol != nil
-      my_each{ |num| inivalue.method(symbol).call(num) }
+    if !inivalue.nil? && !symbol.nil?
+      my_each { |num| inivalue.method(symbol).call(num) }
       inivalue
-    elsif inivalue != nil && inivalue.is_a?(Symbol) && symbol == nil
+    elsif !inivalue.nil? && inivalue.is_a?(Symbol) && symbol.nil?
       memo, *rem_elements = self
       rem_elements.my_each { |num| memo = memo.method(inivalue).call(num) }
       memo
-    elsif inivalue != nil && inivalue.is_a?(Integer) && symbol == nil
+    elsif !inivalue.nil? && inivalue.is_a?(Integer) && symbol.nil?
       my_each { |num| inivalue = yield(inivalue, num) }
       inivalue
-    elsif inivalue == nil && symbol == nil
+    elsif inivalue.nil? && symbol.nil?
       inivalue, *rem_elements = self
       rem_elements.my_each { |num| inivalue = yield(inivalue, num) }
       inivalue
     end
   end
 end
-
-
-  puts "#{[1,26,3,7].my_map_one {|n| n.odd?}}"
-  
