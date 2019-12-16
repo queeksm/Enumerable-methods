@@ -21,7 +21,7 @@ module Enumerable
     my_each do |n|
       emp_arr << n if yield(n)
     end
-    return emp_arr
+    emp_arr
   end
 
   def my_all?
@@ -29,7 +29,7 @@ module Enumerable
     my_each do |n|
       emp_arr << n if yield(n)
     end
-    return emp_arr == self ? true : false
+    emp_arr == self
   end
 
   def my_any?
@@ -37,8 +37,8 @@ module Enumerable
     my_each do |n|
       tester = true if yield(n)
       break if tester
-    end 
-    return tester
+    end
+    tester
   end
 
   def my_none?
@@ -47,21 +47,19 @@ module Enumerable
       tester = false if yield(n)
       break if tester == false
     end
-    return tester
+    tester
   end
 
-  def my_count(item = "CANTOR")
+  def my_count(item = 'CANTOR')
     count = 0
-    if item == "CANTOR"
-      my_each do |n|
-        count += 1
-      end
+    if item == 'CANTOR'
+      count = self.length
     else
       my_each do |n|
         count += 1 if n == item
       end
     end
-    return count
+    count
   end
 
   def my_map_one
@@ -73,7 +71,7 @@ module Enumerable
         emp_arr << false
       end
     end
-    return emp_arr
+    emp_arr
   end
 
   def my_map_two(&block)
