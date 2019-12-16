@@ -78,13 +78,12 @@ module Enumerable
     emp_arr
   end
 
-
   def my_map_three(param = nil)
     emp_arr = []
     my_each do |n|
-      if param == nil && block_given?
+      if param.nil? && block_given?
         emp_arr << yield(n)
-      elsif param != nil && block_given?
+      elsif !param.nil? && block_given?
         emp_arr << param.call(n)
       end
     end
@@ -93,18 +92,18 @@ module Enumerable
 
   def my_inject(inivalue = nil, symbol = nil)
     if inivalue != nil && symbol != nil
-      my_each{ |num| inivalue.method(symbol).call(num)}
+      my_each{ |num| inivalue.method(symbol).call(num) }
       inivalue
     elsif inivalue != nil && inivalue.is_a?(Symbol) && symbol == nil
-      memo, *remaining_elements = self
-      remaining_elements.my_each { |num| memo = memo.method(inivalue).call(num) }
+      memo, *rem_elements = self
+      rem_elements.my_each { |num| memo = memo.method(inivalue).call(num) }
       memo
     elsif inivalue != nil && inivalue.is_a?(Integer) && symbol == nil
       my_each { |num| inivalue = yield(inivalue, num) }
       inivalue
     elsif inivalue == nil && symbol == nil
-      inivalue, *remaining_elements = self
-      remaining_elements.my_each { |num| inivalue = yield(inivalue, num) }
+      inivalue, *rem_elements = self
+      rem_elements.my_each { |num| inivalue = yield(inivalue, num) }
       inivalue
     end
   end
