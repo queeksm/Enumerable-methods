@@ -2,7 +2,7 @@
 
 # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
 
-# Enumerable module modified to fit the personal methods that were developed.
+# Description/Explanation of Enumerable module
 
 module Enumerable
   def my_each
