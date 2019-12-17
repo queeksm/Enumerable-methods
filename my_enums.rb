@@ -109,6 +109,10 @@ module Enumerable #:nodoc: all
       inivalue
     end
   end
+
+  def multiply_els
+    my_inject(:*)
+  end
 end
 
 # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
