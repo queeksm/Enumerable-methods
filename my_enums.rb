@@ -9,6 +9,7 @@ module Enumerable #:nodoc: all
       current = self[n]
       yield(current)
     end
+  end
 
   def my_each_with_index
     return enum = self.to_enum unless block_given?
