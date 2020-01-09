@@ -116,6 +116,7 @@ module Enumerable #:nodoc: all
       end
     else
       return true if empty?
+
       my_each do |n|
         return true if n.nil? || n == false
       end
@@ -129,13 +130,11 @@ module Enumerable #:nodoc: all
       my_each do |n|
         count += 1 if yield(n)
       end
+    elsif item == 'CANTOR'
+      count = length
     else
-      if item == 'CANTOR'
-        count = length
-      else
-        my_each do |n|
-          count += 1 if n == item
-        end
+      my_each do |n|
+        count += 1 if n == item
       end
     end
     count
