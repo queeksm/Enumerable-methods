@@ -44,7 +44,7 @@ module Enumerable #:nodoc: all
           end
           true
         end
-      rescue => e
+      rescue
         my_each do |n|
           next if yield(n)
 
@@ -53,11 +53,12 @@ module Enumerable #:nodoc: all
         true
       end
     else
-      return false if self.length == 0
+      return false if empty?
+
       my_each do |n|
         return false if n.nil? || n == false
       end
-      return true
+      true
     end
   end
 
@@ -66,24 +67,16 @@ module Enumerable #:nodoc: all
       begin
         if yield.is_a? Class
           my_each do |n|
-            if n.instance_of? yield
-              return true
-            else
-              next
-            end
+            return true if n.instance_of? yield
           end
-          return false
+          false
         elsif yield.instance_of? Regexp
           my_each do |n|
-            if n =~ yield
-              return true
-            else
-              next
-            end
+            return true if n =~ yield
           end
-          return false
+          false
         end
-      rescue => exception
+      rescue
         my_each do |n|
           if yield(n)
             return true
@@ -94,7 +87,7 @@ module Enumerable #:nodoc: all
       return false
       end
     else
-      return false if self.length == 0
+      return false if empty?
       my_each do |n|
         if n.nil? || n == false
           next
