@@ -80,10 +80,11 @@ module Enumerable #:nodoc: all
         my_each do |n|
           return true if yield(n)
         end
-      return false
+        false
       end
     else
       return false if empty?
+
       my_each do |n|
         return true unless n.nil? || n == false
       end
@@ -98,27 +99,27 @@ module Enumerable #:nodoc: all
           my_each do |n|
             return false if n.instance_of? yield
           end
-          return true
+          true
         elsif yield.instance_of? Regexp
           my_each do |n|
             return false if n =~ yield
           end
-          return true
+          true
         end
-      rescue => exception
+      rescue NoMethodError
         tester = true
         my_each do |n|
           tester = false if yield(n)
           break if tester == false
         end
-      tester
+        tester
       end
     else
-      return true if self.length == 0
+      return true if empty?
       my_each do |n|
         return true if n.nil? || n == false
       end
-      return false
+      false
     end
   end
 
@@ -128,7 +129,6 @@ module Enumerable #:nodoc: all
       my_each do |n|
         count += 1 if yield(n)
       end
-      count
     else
       if item == 'CANTOR'
         count = length
@@ -137,12 +137,13 @@ module Enumerable #:nodoc: all
           count += 1 if n == item
         end
       end
-      count
     end
+    count
   end
 
   def my_map_one
-    return enum = self.to_enum unless block_given?    
+    return to_enum unless block_given?  
+      
     emp_arr = []
     my_each do |n|
       emp_arr << yield(n)
