@@ -39,16 +39,18 @@ module Enumerable #:nodoc: all
         elsif yield.instance_of? Regexp
           my_each do |n|
             next if n =~ yield
+
             return false
           end
           true
         end
-      rescue => exception
+      rescue => e
         my_each do |n|
           next if yield(n)
+
           return false
         end
-        return true
+        true
       end
     else
       return false if self.length == 0
