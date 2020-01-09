@@ -142,8 +142,8 @@ module Enumerable #:nodoc: all
   end
 
   def my_map_one
-    return to_enum unless block_given?  
-      
+    return to_enum unless block_given?
+  
     emp_arr = []
     my_each do |n|
       emp_arr << yield(n)
