@@ -4,72 +4,176 @@
 
 module Enumerable #:nodoc: all
   def my_each
-    length.times do |n|
-      current = self[n]
-      yield(current)
+    if block_given?
+      length.times do |n|
+        current = self[n]
+        yield(current)
+      end
+    else
+      return enum = self.to_enum
     end
   end
 
   def my_each_with_index
-    length.times do |n|
-      index = n
-      current = self[n]
-      yield(index, current)
+    if block_given?
+      my_each do |n|
+        yield(n, self.index(n))
+      end
+    else
+      return enum = self.to_enum
     end
   end
 
   def my_select
     emp_arr = []
-    my_each do |n|
-      emp_arr << n if yield(n)
+    if block_given?
+      my_each do |n|
+        emp_arr << n if yield(n)
+      end
+      emp_arr
+    else
+      return enum = self.to_enum
     end
-    emp_arr
   end
 
   def my_all?
-    emp_arr = []
-    my_each do |n|
-      emp_arr << n if yield(n)
+    if block_given?
+      begin
+        if yield.is_a? Class 
+          my_each do |n|
+            return false if !n.instance_of? yield
+          end
+          return true
+        elsif yield.instance_of? Regexp
+          my_each do |n|          
+            next if n =~ yield
+            return false
+          end
+          return true
+        end
+      rescue => exception
+        my_each do |n|
+          next if yield(n)
+          return false
+        end
+        return true
+      end    
+    else
+      return false if self.length == 0
+      my_each do |n|
+        return false if n.nil? || n == false
+      end
+      return true
     end
-    emp_arr == self
   end
 
-  def my_any?
-    tester = false
-    my_each do |n|
-      tester = true if yield(n)
-      break if tester
+  def my_any?    
+    if block_given?  
+      begin            
+        if yield.is_a? Class 
+          my_each do |n| 
+            if n.instance_of? yield
+              return true
+            else
+              next
+            end
+          end
+          return false
+        elsif yield.instance_of? Regexp
+          my_each do |n| 
+            if n =~ yield
+              return true
+            else
+              next
+            end
+          end
+          return false
+        end
+      rescue => exception
+        my_each do |n|
+          if yield(n)
+            return true
+          else
+            next
+          end
+        end
+      return false
+      end
+    else
+      return false if self.length == 0
+      my_each do |n|
+        if n.nil? || n == false
+          next
+        else 
+          return true
+        end
+      end
+      return false
     end
-    tester
   end
 
   def my_none?
-    tester = true
-    my_each do |n|
-      tester = false if yield(n)
-      break if tester == false
+    if block_given?
+      begin
+        if yield.is_a? Class
+          my_each do |n|
+            return false if n.instance_of? yield
+          end
+          return true
+        elsif yield.instance_of? Regexp
+          my_each do |n|          
+            return false if n =~ yield
+          end
+          return true
+        end
+      rescue => exception
+        tester = true
+        my_each do |n|
+          tester = false if yield(n)
+          break if tester == false
+        end
+      tester
+      end
+      
+    else
+      return true if self.length == 0
+      my_each do |n|
+        return true if n.nil? || n == false
+      end
+      return false
     end
-    tester
+
   end
 
   def my_count(item = 'CANTOR')
     count = 0
-    if item == 'CANTOR'
-      count = length
-    else
+    if block_given?
       my_each do |n|
-        count += 1 if n == item
+        count += 1 if yield(n)
       end
+      count
+    else
+      if item == 'CANTOR'
+        count = length
+      else
+        my_each do |n|
+          count += 1 if n == item
+        end
+      end
+      count
     end
-    count
   end
 
   def my_map_one
-    emp_arr = []
-    my_each do |n|
-      emp_arr << yield(n)
+    if block_given?
+      emp_arr = []
+      my_each do |n|
+        emp_arr << yield(n)
+      end
+      emp_arr
+    else
+      return enum = self.to_enum
     end
-    emp_arr
   end
 
   def my_map_two(&block)
