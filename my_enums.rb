@@ -4,7 +4,7 @@
 
 module Enumerable #:nodoc: all
   def my_each
-    return enum = self.to_enum unless block_given?
+    return self.to_enum unless block_given?
     length.times do |n|
       current = self[n]
       yield(current)
@@ -12,7 +12,7 @@ module Enumerable #:nodoc: all
   end
 
   def my_each_with_index
-    return enum = self.to_enum unless block_given?
+    return self.to_enum unless block_given?
     my_each do |n|
       yield(n, self.index(n))
     end
@@ -20,7 +20,7 @@ module Enumerable #:nodoc: all
 
   def my_select
     emp_arr = []
-    return enum = self.to_enum unless block_given?
+    return self.to_enum unless block_given?
     my_each do |n|
       emp_arr << n if yield(n)
     end
