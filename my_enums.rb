@@ -14,13 +14,14 @@ module Enumerable #:nodoc: all
     return to_enum unless block_given?
 
     my_each do |n|
-      yield(n, self.index(n))
+      yield(n, index(n))
     end
   end
 
   def my_select
     emp_arr = []
     return to_enum unless block_given?
+
     my_each do |n|
       emp_arr << n if yield(n)
     end
@@ -32,7 +33,7 @@ module Enumerable #:nodoc: all
       begin
         if yield.is_a? Class
           my_each do |n|
-            return false if !n.instance_of? yield
+            return false unless n.instance_of? yield
           end
           true
         elsif yield.instance_of? Regexp
