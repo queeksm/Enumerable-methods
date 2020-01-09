@@ -44,7 +44,7 @@ module Enumerable #:nodoc: all
           end
           true
         end
-      rescue
+      rescue NoMethodError
         my_each do |n|
           next if yield(n)
 
@@ -76,26 +76,18 @@ module Enumerable #:nodoc: all
           end
           false
         end
-      rescue
+      rescue NoMethodError
         my_each do |n|
-          if yield(n)
-            return true
-          else
-            next
-          end
+          return true if yield(n)
         end
       return false
       end
     else
       return false if empty?
       my_each do |n|
-        if n.nil? || n == false
-          next
-        else
-          return true
-        end
+        return true unless n.nil? || n == false
       end
-      return false
+      false
     end
   end
 
@@ -200,5 +192,3 @@ module Enumerable #:nodoc: all
     my_inject(:*)
   end
 end
-
-
