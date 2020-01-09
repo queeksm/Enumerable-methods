@@ -4,52 +4,42 @@
 
 module Enumerable #:nodoc: all
   def my_each
-    if block_given?
-      length.times do |n|
-        current = self[n]
-        yield(current)
-      end
-    else
-      return enum = self.to_enum
+    return enum = self.to_enum unless block_given?
+    length.times do |n|
+      current = self[n]
+      yield(current)
     end
-  end
 
   def my_each_with_index
-    if block_given?
-      my_each do |n|
-        yield(n, self.index(n))
-      end
-    else
-      return enum = self.to_enum
+    return enum = self.to_enum unless block_given?
+    my_each do |n|
+      yield(n, self.index(n))
     end
   end
 
   def my_select
     emp_arr = []
-    if block_given?
-      my_each do |n|
-        emp_arr << n if yield(n)
-      end
-      emp_arr
-    else
-      return enum = self.to_enum
+    return enum = self.to_enum unless block_given?
+    my_each do |n|
+      emp_arr << n if yield(n)
     end
+    emp_arr
   end
 
   def my_all?
     if block_given?
       begin
-        if yield.is_a? Class 
+        if yield.is_a? Class
           my_each do |n|
             return false if !n.instance_of? yield
           end
-          return true
+          true
         elsif yield.instance_of? Regexp
-          my_each do |n|          
+          my_each do |n|
             next if n =~ yield
             return false
           end
-          return true
+          true
         end
       rescue => exception
         my_each do |n|
@@ -57,7 +47,7 @@ module Enumerable #:nodoc: all
           return false
         end
         return true
-      end    
+      end
     else
       return false if self.length == 0
       my_each do |n|
@@ -67,11 +57,11 @@ module Enumerable #:nodoc: all
     end
   end
 
-  def my_any?    
-    if block_given?  
-      begin            
-        if yield.is_a? Class 
-          my_each do |n| 
+  def my_any?
+    if block_given?
+      begin
+        if yield.is_a? Class
+          my_each do |n|
             if n.instance_of? yield
               return true
             else
@@ -80,7 +70,7 @@ module Enumerable #:nodoc: all
           end
           return false
         elsif yield.instance_of? Regexp
-          my_each do |n| 
+          my_each do |n|
             if n =~ yield
               return true
             else
@@ -104,7 +94,7 @@ module Enumerable #:nodoc: all
       my_each do |n|
         if n.nil? || n == false
           next
-        else 
+        else
           return true
         end
       end
@@ -121,7 +111,7 @@ module Enumerable #:nodoc: all
           end
           return true
         elsif yield.instance_of? Regexp
-          my_each do |n|          
+          my_each do |n|
             return false if n =~ yield
           end
           return true
@@ -134,7 +124,6 @@ module Enumerable #:nodoc: all
         end
       tester
       end
-      
     else
       return true if self.length == 0
       my_each do |n|
@@ -142,7 +131,6 @@ module Enumerable #:nodoc: all
       end
       return false
     end
-
   end
 
   def my_count(item = 'CANTOR')
@@ -165,15 +153,12 @@ module Enumerable #:nodoc: all
   end
 
   def my_map_one
-    if block_given?
-      emp_arr = []
-      my_each do |n|
-        emp_arr << yield(n)
-      end
-      emp_arr
-    else
-      return enum = self.to_enum
+    return enum = self.to_enum unless block_given?    
+    emp_arr = []
+    my_each do |n|
+      emp_arr << yield(n)
     end
+    emp_arr
   end
 
   def my_map_two(&block)
