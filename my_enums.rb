@@ -8,6 +8,7 @@ module Enumerable #:nodoc: all
       current = self[n]
       yield(current)
     end
+    self
   end
 
   def my_each_with_index
@@ -16,6 +17,7 @@ module Enumerable #:nodoc: all
     my_each do |n|
       yield(n, index(n))
     end
+    self
   end
 
   def my_select
