@@ -3,21 +3,20 @@
 require_relative '../my_enums.rb'
 
 RSpec.describe Enumerable do
-  arr = [1,2,3,4,5]
-  
-  describe "#my_each" do
+  arr = [1, 2, 3, 4, 5]
+
+  describe '#my_each' do
     emp = []
-    it "Takes an array and executes a block for every item on the array returns the array itself" do
+    it 'Takes an array and executes a block for every item on the array returns the array itself' do
       arr.my_each do |n|
-        emp << n+2
+        emp << n + 2
       end
-      expect(emp).to eq([3,4,5,6,7])
-    end
-    
-    it "Return Enum if no block is passed" do
-      expect(arr.my_each).to be_kind_of(Enumerator)
+      expect(emp).to eq([3, 4, 5, 6, 7])
     end
 
+    it 'Return Enum if no block is passed' do
+      expect(arr.my_each).to be_kind_of(Enumerator)
+    end
   end
   
   describe "#my_each_with_index" do
