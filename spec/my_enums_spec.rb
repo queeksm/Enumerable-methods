@@ -1,6 +1,9 @@
 # frozen_string_literal: true
+
 # rubocop:disable Metrics/LineLength
 # rubocop:disable Metrics/BlockLength
+# rubocop:disable Style/SymbolProc
+# rubocop:disable Style/Proc
 
 require_relative '../my_enums.rb'
 
@@ -60,7 +63,7 @@ RSpec.describe Enumerable do
       end
 
       it 'Returns true if all the members of the array fit the condition on the block' do
-        expect(arr_test.my_all?{/n/}).to eq(true)
+        expect(arr_test.my_all? { /n/ }).to eq(true)
       end
 
       it 'If no block is passed then returns true iff all the object within the array are true' do
@@ -73,7 +76,7 @@ RSpec.describe Enumerable do
     end
 
     describe '#my_any?' do
-      arr_test = %w[new, dent, can]
+      arr_test = %w[new dent can]
       arr_test2 = [true, nil, 9, 'f']
       it 'Returns true if any of the object within the array fit the condition' do
         expect(arr.my_any? { |n| n .even? }).to eq(true)
@@ -93,7 +96,7 @@ RSpec.describe Enumerable do
     end
 
     describe '#my_none?' do
-      arr_test = %w[new, dent, can]
+      arr_test = %w[new dent can]
       arr_test2 = [true, nil, 9, 'f']
       it 'Passes each element of the collection to the given block. The method returns true if the block never returns true for all elements.' do
         expect(arr.my_none? { |n| n > 10 }).to eq(true)
@@ -154,11 +157,11 @@ RSpec.describe Enumerable do
       end
 
       it 'Returns a transformed array after receiving a block' do
-        expect(arr.my_map_three { |n| n+2 }).to eq([3, 4, 5, 6, 7])
+        expect(arr.my_map_three { |n| n + 2 }).to eq([3, 4, 5, 6, 7])
       end
 
       it 'executes the proc if a proc and a block are given' do
-        expect(arr.my_map_three(test) { |n| n+2 }).to eq([2, 4, 6, 8, 10])
+        expect(arr.my_map_three(test) { |n| n + 2 }).to eq([2, 4, 6, 8, 10])
       end
 
       it 'Returns a enum when nor a block or a proc are given' do
@@ -172,7 +175,7 @@ RSpec.describe Enumerable do
       end
 
       it 'Combines all elements of enum by applying a binary operation, specified by a block or a symbol that names a method or operator.' do
-        expect(arr.my_inject(2,:*)).to eq(240)
+        expect(arr.my_inject(2, :*)).to eq(240)
       end
 
       it 'Combines all elements of enum by applying a binary operation, specified by a block or a symbol that names a method or operator.' do
@@ -188,3 +191,5 @@ end
 
 # rubocop:enable Metrics/LineLength
 # rubocop:enable Metrics/BlockLength
+# rubocop:enable Style/SymbolProc
+# rubocop:enable Style/Proc
