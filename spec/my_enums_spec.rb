@@ -151,7 +151,7 @@ RSpec.describe Enumerable do
     end
 
     describe '#my_map_three' do
-      test = Proc.new { |n| n*2 }
+      test = Proc.new { |n| n * 2 }
       it 'Returns a transformed array after receiving a proc as a parameter' do
         expect(arr.my_map_three(test)).to eq([2, 4, 6, 8, 10])
       end
