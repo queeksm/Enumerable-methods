@@ -8,16 +8,21 @@ AllCops:
   DisplayCopNames: true
 
 Metrics/LineLength:
+  Enabled: false
   Max: 1200
 Metrics/MethodLength:
+  Enabled: false
   Include: ["app/controllers/*"]
   Max: 200
 Metrics/AbcSize:
+  Enabled: false
   Include: ["app/controllers/*"]
   Max: 200
 Metrics/ClassLength:
+  Enabled: false
   Max: 1500
 Metrics/BlockLength:
+  Enabled: false
   ExcludedMethods: ['describe']
   Max: 1500
 
@@ -34,5 +39,5 @@ Layout/MultilineMethodCallIndentation:
   Enabled: true
   EnforcedStyle: indented
 Layout/LineLength:
-  Enabled: true
+  Enabled: false
   Max: 1500

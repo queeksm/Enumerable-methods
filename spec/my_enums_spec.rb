@@ -47,7 +47,7 @@ RSpec.describe Enumerable do
     end
 
     describe '#my_all?' do
-      arr_test = %w('new','dent','can')
+      arr_test = %w[new, dent, can]
       arr_test2 = [true, nil, 9, 'f']
       it 'Returns true if all the members of the array fit the condition on the block' do
         expect(arr.my_all?{ |n| n < 6}).to eq(true)
@@ -71,7 +71,7 @@ RSpec.describe Enumerable do
     end
 
     describe '#my_any?' do
-      arr_test = %w('new','dent','can')
+      arr_test = %w[new, dent, can]
       arr_test2 = [true, nil, 9, 'f']
       it 'Returns true if any of the object within the array fit the condition' do
         expect(arr.my_any?{ |n| n .even?}).to eq(true)
@@ -91,7 +91,7 @@ RSpec.describe Enumerable do
     end
 
     describe '#my_none?' do
-      arr_test = %w('new','dent','can')
+      arr_test = %w[new, dent, can]
       arr_test2 = [true, nil, 9, 'f']
       it 'Passes each element of the collection to the given block. The method returns true if the block never returns true for all elements.' do
         expect(arr.my_none?{ |n| n > 10}).to eq(true)
