@@ -154,7 +154,7 @@ module Enumerable #:nodoc: all
 
   def my_map_two(proc = nil)
     return to_enum if proc.nil?
-    
+  
     emp_arr = []
     my_each do |n|
       emp_arr << proc.call(n)
@@ -179,21 +179,21 @@ module Enumerable #:nodoc: all
   end
 
   def my_inject(inivalue = nil, symbol = nil)
-    
+  
     if !inivalue.nil? && !symbol.nil?
       my_each { |num| inivalue = inivalue.method(symbol).call(num) }
       inivalue
     elsif !inivalue.nil? && inivalue.is_a?(Symbol) && symbol.nil?
       memo, *rem_elements = self
       rem_elements.my_each { |num| memo = memo.method(inivalue).call(num) }
-      return memo
+      memo
     elsif !inivalue.nil? && inivalue.is_a?(Integer) && symbol.nil?
       my_each { |num| inivalue = yield(inivalue, num) }
-      return inivalue
+      inivalue
     elsif inivalue.nil? && symbol.nil?
       inivalue, *rem_elements = self
       rem_elements.my_each { |num| inivalue = yield(inivalue, num) }
-      return inivalue
+      inivalue
     end
   end
 
