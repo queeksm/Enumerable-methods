@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+# rubocop:disable Metrics/LineLength
+# rubocop:disable Metrics/BlockLength
 
 require_relative '../my_enums.rb'
 
