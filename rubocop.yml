@@ -19,6 +19,7 @@ Metrics/ClassLength:
   Max: 1500
 Metrics/BlockLength:
   ExcludedMethods: ['describe']
+  Max: 1500
 
 Style/Documentation:
   Enabled: false
@@ -32,3 +33,6 @@ Layout/ExtraSpacing:
 Layout/MultilineMethodCallIndentation:
   Enabled: true
   EnforcedStyle: indented
+Layout/LineLength:
+  Enabled: true
+  Max: 1500
