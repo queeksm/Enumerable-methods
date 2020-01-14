@@ -154,7 +154,7 @@ module Enumerable #:nodoc: all
 
   def my_map_two(proc = nil)
     return to_enum if proc.nil?
-    
+
     emp_arr = []
     my_each do |n|
       emp_arr << proc.call(n)
