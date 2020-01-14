@@ -179,7 +179,6 @@ module Enumerable #:nodoc: all
   end
 
   def my_inject(inivalue = nil, symbol = nil)
-
     if !inivalue.nil? && !symbol.nil?
       my_each { |num| inivalue = inivalue.method(symbol).call(num) }
       inivalue
