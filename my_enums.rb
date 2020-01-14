@@ -8,6 +8,7 @@ module Enumerable #:nodoc: all
       current = self[n]
       yield(current)
     end
+    self
   end
 
   def my_each_with_index
@@ -16,6 +17,7 @@ module Enumerable #:nodoc: all
     my_each do |n|
       yield(n, index(n))
     end
+    self
   end
 
   def my_select
@@ -118,9 +120,9 @@ module Enumerable #:nodoc: all
       return true if empty?
 
       my_each do |n|
-        return true if n.nil? || n == false
+        return false if n == true
       end
-      false
+      true
     end
   end
 
@@ -150,10 +152,12 @@ module Enumerable #:nodoc: all
     emp_arr
   end
 
-  def my_map_two(&block)
+  def my_map_two(proc = nil)
+    return to_enum if proc.nil?
+    
     emp_arr = []
     my_each do |n|
-      emp_arr << block.call(n)
+      emp_arr << proc.call(n)
     end
     emp_arr
   end
@@ -163,28 +167,33 @@ module Enumerable #:nodoc: all
     my_each do |n|
       if param.nil? && block_given?
         emp_arr << yield(n)
+      elsif !param.nil? && !block_given?
+        emp_arr << param.call(n)
       elsif !param.nil? && block_given?
         emp_arr << param.call(n)
+      else
+        return to_enum
       end
     end
     emp_arr
   end
 
   def my_inject(inivalue = nil, symbol = nil)
+    
     if !inivalue.nil? && !symbol.nil?
-      my_each { |num| inivalue.method(symbol).call(num) }
+      my_each { |num| inivalue = inivalue.method(symbol).call(num) }
       inivalue
     elsif !inivalue.nil? && inivalue.is_a?(Symbol) && symbol.nil?
       memo, *rem_elements = self
       rem_elements.my_each { |num| memo = memo.method(inivalue).call(num) }
-      memo
+      return memo
     elsif !inivalue.nil? && inivalue.is_a?(Integer) && symbol.nil?
       my_each { |num| inivalue = yield(inivalue, num) }
-      inivalue
+      return inivalue
     elsif inivalue.nil? && symbol.nil?
       inivalue, *rem_elements = self
       rem_elements.my_each { |num| inivalue = yield(inivalue, num) }
-      inivalue
+      return inivalue
     end
   end
 
