@@ -49,14 +49,14 @@ RSpec.describe Enumerable do
     end
 
     describe '#my_all?' do
-      arr_test = %w[new, dent, can]
+      arr_test = %w[new dent can]
       arr_test2 = [true, nil, 9, 'f']
       it 'Returns true if all the members of the array fit the condition on the block' do
-        expect(arr.my_all?{ |n| n < 6}).to eq(true)
+        expect(arr.my_all? { |n| n < 6 }).to eq(true)
       end
 
       it 'Returns true if all the members of the array fit the condition on the block' do
-        expect(arr.my_all?{Integer}).to eq(true)
+        expect(arr.my_all? { Integer }).to eq(true)
       end
 
       it 'Returns true if all the members of the array fit the condition on the block' do
@@ -76,15 +76,15 @@ RSpec.describe Enumerable do
       arr_test = %w[new, dent, can]
       arr_test2 = [true, nil, 9, 'f']
       it 'Returns true if any of the object within the array fit the condition' do
-        expect(arr.my_any?{ |n| n .even?}).to eq(true)
+        expect(arr.my_any? { |n| n .even? }).to eq(true)
       end
 
       it 'Returns true if any of the object within the array fit the condition' do
-        expect(arr.my_any?{Integer}).to eq(true)
+        expect(arr.my_any? { Integer }).to eq(true)
       end
 
       it 'Returns true if any of the object within the array fit the condition' do
-        expect(arr_test.my_any?{/n/}).to eq(true)
+        expect(arr_test.my_any? { /n/ }).to eq(true)
       end
 
       it 'If no block is passed it returns true if any of the elemnts is true or not nil' do
@@ -96,15 +96,15 @@ RSpec.describe Enumerable do
       arr_test = %w[new, dent, can]
       arr_test2 = [true, nil, 9, 'f']
       it 'Passes each element of the collection to the given block. The method returns true if the block never returns true for all elements.' do
-        expect(arr.my_none?{ |n| n > 10}).to eq(true)
+        expect(arr.my_none? { |n| n > 10 }).to eq(true)
       end
 
       it 'Passes each element of the collection to the given block. The method returns true if the block never returns true for all elements.' do
-        expect(arr.my_none?{String}).to eq(true)
+        expect(arr.my_none? { String }).to eq(true)
       end
 
       it 'Passes each element of the collection to the given block. The method returns true if the block never returns true for all elements.' do
-        expect(arr_test.my_none?{/q/}).to eq(true)
+        expect(arr_test.my_none? { /q/ }).to eq(true)
       end
 
       it 'If no block is given it will return false if any of the memebrs of the collection is true' do
@@ -122,13 +122,13 @@ RSpec.describe Enumerable do
       end
 
       it 'if a block is given it return the number of values that are true within the block' do
-        expect(arr.my_count{ |n| n <= 3}).to eq(3)
+        expect(arr.my_count { |n| n <= 3 }).to eq(3)
       end
     end
 
     describe '#my_map_one' do
       it 'Returns an array after transforming the data with the black given' do
-        expect(arr.my_map_one{ |n| n * 2}).to eq([2, 4, 6, 8, 10])
+        expect(arr.my_map_one { |n| n * 2 }).to eq([2, 4, 6, 8, 10])
       end
 
       it 'Returns an enumerator when no block is passed' do
@@ -138,7 +138,7 @@ RSpec.describe Enumerable do
 
     describe '#my_map_two' do
       it 'Returns a transformed array after recieving a proc as a parameter' do
-        test = Proc.new{ |n| n * 2}
+        test = Proc.new { |n| n * 2 }
         expect(arr.my_map_two(test)).to eq([2, 4, 6, 8, 10])
       end
 
@@ -154,11 +154,11 @@ RSpec.describe Enumerable do
       end
 
       it 'Returns a transformed array after receiving a block' do
-        expect(arr.my_map_three{ |n| n+2}).to eq([3, 4, 5, 6, 7])
+        expect(arr.my_map_three { |n| n+2 }).to eq([3, 4, 5, 6, 7])
       end
 
       it 'executes the proc if a proc and a block are given' do
-        expect(arr.my_map_three(test){ |n| n+2}).to eq([2, 4, 6, 8, 10])
+        expect(arr.my_map_three(test) { |n| n+2 }).to eq([2, 4, 6, 8, 10])
       end
 
       it 'Returns a enum when nor a block or a proc are given' do
@@ -185,3 +185,6 @@ RSpec.describe Enumerable do
     end
   end
 end
+
+# rubocop:enable Metrics/LineLength
+# rubocop:enable Metrics/BlockLength
