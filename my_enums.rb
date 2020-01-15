@@ -4,6 +4,8 @@ module Enumerable #:nodoc: all
   def my_each
     return to_enum unless block_given?
 
+    if is_a? Range
+      
     length.times do |n|
       current = self[n]
       yield(current)
@@ -30,12 +32,12 @@ module Enumerable #:nodoc: all
     emp_arr
   end
 
-  def my_all?
+  def my_all?(param = nil)
     if block_given?
       begin
         if yield.is_a? Class
           my_each do |n|
-            return false unless n.instance_of? yield
+            return false unless n.kind_of? yield
           end
           true
         elsif yield.instance_of? Regexp
@@ -49,6 +51,27 @@ module Enumerable #:nodoc: all
       rescue NoMethodError
         my_each do |n|
           next if yield(n)
+
+          return false
+        end
+        true
+      end
+    elsif !param.nil?
+      if param.is_a? Class
+        my_each do |n|
+          return false unless n.kind_of? param
+        end
+        true
+      elsif param.instance_of? Regexp
+        my_each do |n|
+          next if n =~ param
+
+          return false
+        end
+        true
+      else
+        my_each do |n|
+          next if n == param
 
           return false
         end
@@ -94,7 +117,7 @@ module Enumerable #:nodoc: all
     end
   end
 
-  def my_none?
+  def my_none?(param = nil)
     if block_given?
       begin
         if yield.is_a? Class
@@ -112,6 +135,25 @@ module Enumerable #:nodoc: all
         tester = true
         my_each do |n|
           tester = false if yield(n)
+          break if tester == false
+        end
+        tester
+      end
+    elsif !param.nil?
+      if param.is_a? Class
+        my_each do |n|
+          return false if n.instance_of? param
+        end
+        true
+      elsif param.instance_of? Regexp
+        my_each do |n|
+          return false if n =~ param
+        end
+        true
+      else
+        tester = true
+        my_each do |n|
+          tester = false if n == param
           break if tester == false
         end
         tester
@@ -140,6 +182,22 @@ module Enumerable #:nodoc: all
       end
     end
     count
+  end
+
+  def my_map(param = nil)
+    emp_arr = []
+    my_each do |n|
+      if param.nil? && block_given?
+        emp_arr << yield(n)
+      elsif !param.nil? && !block_given?
+        emp_arr << param.call(n)
+      elsif !param.nil? && block_given?
+        emp_arr << param.call(n)
+      else
+        return to_enum
+      end
+    end
+    emp_arr
   end
 
   def my_map_one
@@ -200,6 +258,3 @@ module Enumerable #:nodoc: all
     my_inject(:*)
   end
 end
-
-
-puts [1,2,3,4,5].my_each_with_index
