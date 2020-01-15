@@ -1,9 +1,14 @@
 # frozen_string_literal: true
 
+#rubocop: disable Metrics/AbcSize
+#rubocop: disable Metrics/CyclomaticComplexity
+#rubocop: disable Metrics/MethodLength
+#rubocop: disable Metrics/PerceivedComplexity
+
 module Enumerable #:nodoc: all
   def my_each
     return to_enum unless block_given?
-      
+
     length.times do |n|
       current = self[n]
       yield(current)
@@ -35,7 +40,7 @@ module Enumerable #:nodoc: all
       begin
         if yield.is_a? Class
           my_each do |n|
-            return false unless n.kind_of? yield
+            return false unless n.is_a? yield
           end
           true
         elsif yield.instance_of? Regexp
@@ -57,24 +62,22 @@ module Enumerable #:nodoc: all
     elsif !param.nil?
       if param.is_a? Class
         my_each do |n|
-          return false unless n.kind_of? param
+          return false unless n.is_a? param
         end
-        true
       elsif param.instance_of? Regexp
         my_each do |n|
           next if n =~ param
 
           return false
         end
-        true
       else
         my_each do |n|
           next if n == param
 
           return false
         end
-        true
       end
+      true
     else
       return false if empty?
 
@@ -90,7 +93,7 @@ module Enumerable #:nodoc: all
       begin
         if yield.is_a? Class
           my_each do |n|
-            return true if n.instance_of? yield
+            return true if n.is_a? yield
           end
           false
         elsif yield.instance_of? Regexp
@@ -120,7 +123,7 @@ module Enumerable #:nodoc: all
       begin
         if yield.is_a? Class
           my_each do |n|
-            return false if n.instance_of? yield
+            return false if n.is_a? yield
           end
           true
         elsif yield.instance_of? Regexp
@@ -140,7 +143,7 @@ module Enumerable #:nodoc: all
     elsif !param.nil?
       if param.is_a? Class
         my_each do |n|
-          return false if n.instance_of? param
+          return false if n.is_a? param
         end
         true
       elsif param.instance_of? Regexp
