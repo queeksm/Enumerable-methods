@@ -200,3 +200,6 @@ module Enumerable #:nodoc: all
     my_inject(:*)
   end
 end
+
+
+puts [1,2,3,4,5].my_each_with_index
