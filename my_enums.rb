@@ -3,8 +3,6 @@
 module Enumerable #:nodoc: all
   def my_each
     return to_enum unless block_given?
-
-    if is_a? Range
       
     length.times do |n|
       current = self[n]
