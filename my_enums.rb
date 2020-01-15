@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-#rubocop: disable Metrics/AbcSize
-#rubocop: disable Metrics/CyclomaticComplexity
-#rubocop: disable Metrics/MethodLength
-#rubocop: disable Metrics/PerceivedComplexity
+# rubocop: disable Metrics/AbcSize
+# rubocop: disable Metrics/CyclomaticComplexity
+# rubocop: disable Metrics/MethodLength
+# rubocop: disable Metrics/PerceivedComplexity
 
 module Enumerable #:nodoc: all
   def my_each
@@ -259,3 +259,8 @@ module Enumerable #:nodoc: all
     my_inject(:*)
   end
 end
+
+# rubocop: enable Metrics/AbcSize
+# rubocop: enable Metrics/CyclomaticComplexity
+# rubocop: enable Metrics/MethodLength
+# rubocop: enable Metrics/PerceivedComplexity
