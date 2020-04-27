@@ -6,11 +6,13 @@
 # rubocop: disable Metrics/PerceivedComplexity
 
 module Enumerable #:nodoc: all
-  def my_each
+  def my_each    
     return to_enum unless block_given?
 
-    length.times do |n|
-      current = self[n]
+    arr = self.to_a if self.is_a? Range
+    arr = self unless self.is_a? Range    
+    arr.length.times do |n|
+      current = arr[n]
       yield(current)
     end
     self
@@ -88,17 +90,12 @@ module Enumerable #:nodoc: all
     end
   end
 
-  def my_any?
+  def my_any?(param = nil)
     if block_given?
       begin
-        if yield.is_a? Class
+        if (yield.is_a? Class) || (yield.instance_of? Regexp)
           my_each do |n|
-            return true if n.is_a? yield
-          end
-          false
-        elsif yield.instance_of? Regexp
-          my_each do |n|
-            return true if n =~ yield
+            return true if (n.is_a? yield) || (n =~ yield)
           end
           false
         end
@@ -108,6 +105,11 @@ module Enumerable #:nodoc: all
         end
         false
       end
+    elsif !param.nil?
+      my_each do |n|
+        return true if (n.class == param) || (n =~ param) || (n == param)      
+      end
+      false
     else
       return false if empty?
 
@@ -242,16 +244,20 @@ module Enumerable #:nodoc: all
       my_each { |num| inivalue = inivalue.method(symbol).call(num) }
       inivalue
     elsif !inivalue.nil? && inivalue.is_a?(Symbol) && symbol.nil?
-      memo, *rem_elements = self
-      rem_elements.my_each { |num| memo = memo.method(inivalue).call(num) }
+      arr = self.to_a if self.is_a? Range
+      arr = self unless self.is_a? Range
+      memo = arr.shift      
+      arr.my_each { |num| memo = memo.method(inivalue).call(num) }
       memo
     elsif !inivalue.nil? && inivalue.is_a?(Integer) && symbol.nil?
       my_each { |num| inivalue = yield(inivalue, num) }
       inivalue
     elsif inivalue.nil? && symbol.nil?
-      inivalue, *rem_elements = self
-      rem_elements.my_each { |num| inivalue = yield(inivalue, num) }
-      inivalue
+      arr = self.to_a if self.is_a? Range
+      arr = self unless self.is_a? Range
+      memo = arr.shift
+      arr.my_each { |num| memo = yield(memo, num) }
+      memo
     end
   end
 
