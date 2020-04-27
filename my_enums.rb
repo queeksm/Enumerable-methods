@@ -9,7 +9,7 @@ module Enumerable #:nodoc: all
   def my_each
     return to_enum unless block_given?
 
-    arr = self.to_a if is_a? Range
+    arr = to_a if is_a? Range
     arr = self unless is_a? Range
     arr.length.times do |n|
       current = arr[n]
@@ -244,7 +244,7 @@ module Enumerable #:nodoc: all
       my_each { |num| inivalue = inivalue.method(symbol).call(num) }
       inivalue
     elsif !inivalue.nil? && inivalue.is_a?(Symbol) && symbol.nil?
-      arr = self.to_a if is_a? Range
+      arr = to_a if is_a? Range
       arr = self unless is_a? Range
       memo = arr.shift
       arr.my_each { |num| memo = memo.method(inivalue).call(num) }
@@ -253,7 +253,7 @@ module Enumerable #:nodoc: all
       my_each { |num| inivalue = yield(inivalue, num) }
       inivalue
     elsif inivalue.nil? && symbol.nil?
-      arr = self.to_a if is_a? Range
+      arr = to_a if is_a? Range
       arr = self unless is_a? Range
       memo = arr.shift
       arr.my_each { |num| memo = yield(memo, num) }
