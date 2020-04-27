@@ -6,11 +6,11 @@
 # rubocop: disable Metrics/PerceivedComplexity
 
 module Enumerable #:nodoc: all
-  def my_each    
+  def my_each
     return to_enum unless block_given?
 
-    arr = self.to_a if self.is_a? Range
-    arr = self unless self.is_a? Range    
+    arr = self.to_a if is_a? Range
+    arr = self unless is_a? Range
     arr.length.times do |n|
       current = arr[n]
       yield(current)
@@ -107,7 +107,7 @@ module Enumerable #:nodoc: all
       end
     elsif !param.nil?
       my_each do |n|
-        return true if (n.class == param) || (n =~ param) || (n == param)      
+        return true if (n.class == param) || (n =~ param) || (n == param)
       end
       false
     else
@@ -244,17 +244,17 @@ module Enumerable #:nodoc: all
       my_each { |num| inivalue = inivalue.method(symbol).call(num) }
       inivalue
     elsif !inivalue.nil? && inivalue.is_a?(Symbol) && symbol.nil?
-      arr = self.to_a if self.is_a? Range
-      arr = self unless self.is_a? Range
-      memo = arr.shift      
+      arr = self.to_a if is_a? Range
+      arr = self unless is_a? Range
+      memo = arr.shift
       arr.my_each { |num| memo = memo.method(inivalue).call(num) }
       memo
     elsif !inivalue.nil? && inivalue.is_a?(Integer) && symbol.nil?
       my_each { |num| inivalue = yield(inivalue, num) }
       inivalue
     elsif inivalue.nil? && symbol.nil?
-      arr = self.to_a if self.is_a? Range
-      arr = self unless self.is_a? Range
+      arr = self.to_a if is_a? Range
+      arr = self unless is_a? Range
       memo = arr.shift
       arr.my_each { |num| memo = yield(memo, num) }
       memo
