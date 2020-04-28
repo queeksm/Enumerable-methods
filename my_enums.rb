@@ -107,7 +107,7 @@ module Enumerable #:nodoc: all
       end
     elsif !param.nil?
       my_each do |n|
-        return true if (n.class == param) || (n =~ param) || (n == param)
+        return true if (n.class == param) || (n == param) || (n =~ param)
       end
       false
     else
@@ -247,7 +247,9 @@ module Enumerable #:nodoc: all
       arr = to_a if is_a? Range
       arr = self unless is_a? Range
       memo = arr.shift
+      mem = memo
       arr.my_each { |num| memo = memo.method(inivalue).call(num) }
+      arr.unshift(mem)
       memo
     elsif !inivalue.nil? && inivalue.is_a?(Integer) && symbol.nil?
       my_each { |num| inivalue = yield(inivalue, num) }
@@ -256,7 +258,9 @@ module Enumerable #:nodoc: all
       arr = to_a if is_a? Range
       arr = self unless is_a? Range
       memo = arr.shift
+      mem = memo
       arr.my_each { |num| memo = yield(memo, num) }
+      arr.unshift(mem)
       memo
     end
   end
