@@ -20,7 +20,6 @@ module Enumerable #:nodoc: all
 
   def my_each_with_index
     return to_enum unless block_given?
-    
     index = 0
 
     my_each do |n|
@@ -115,7 +114,7 @@ module Enumerable #:nodoc: all
       false
     elsif (!param.is_a? Class) && (!param.instance_of? Regexp)
       my_each do |n|
-        return true if (n == param)
+        return true if n == param
       end
       false
     else
