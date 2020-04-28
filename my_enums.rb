@@ -20,6 +20,7 @@ module Enumerable #:nodoc: all
 
   def my_each_with_index
     return to_enum unless block_given?
+
     index = 0
 
     my_each do |n|
