@@ -20,9 +20,12 @@ module Enumerable #:nodoc: all
 
   def my_each_with_index
     return to_enum unless block_given?
+    
+    index = 0
 
     my_each do |n|
-      yield(n, index(n))
+      yield(n, index)
+      index += 1
     end
     self
   end
@@ -105,9 +108,14 @@ module Enumerable #:nodoc: all
         end
         false
       end
-    elsif !param.nil?
+    elsif (param.is_a? Class) || (param.instance_of? Regexp)
       my_each do |n|
-        return true if (n.class == param) || (n == param) || (n =~ param)
+        return true if (n.class == param) || (n =~ param)
+      end
+      false
+    elsif (!param.is_a? Class) && (!param.instance_of? Regexp)
+      my_each do |n|
+        return true if (n == param)
       end
       false
     else
