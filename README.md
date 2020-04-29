@@ -6,7 +6,7 @@ This project consists of creating a copy of the methods on the Enumerable module
 
 ## 🔮 The Project Brief
 
-The assignment can be found in the Odin Project's HTML and CSS course that can be found [here.](https://www.theodinproject.com/courses/ruby-programming/lessons/advanced-building-blocks)
+The assignment can be found in the Odin Project's Ruby course that can be found [here.](https://www.theodinproject.com/courses/ruby-programming/lessons/advanced-building-blocks)
 
 ## 🔨 Technologies & Languages Used
 
