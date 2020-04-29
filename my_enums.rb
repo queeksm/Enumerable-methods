@@ -122,9 +122,9 @@ module Enumerable #:nodoc: all
       return false if empty?
 
       my_each do |n|
-        return false if n.nil? || n == false
+        return true if !n.nil? && n != false
       end
-      true
+      false
     end
   end
 
