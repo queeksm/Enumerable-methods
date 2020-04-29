@@ -8,15 +8,15 @@ AllCops:
   DisplayCopNames: true
 
 Metrics/LineLength:
-  Max: 120
+  Max: 1200
 Metrics/MethodLength:
   Include: ["app/controllers/*"]
-  Max: 20
+  Max: 200
 Metrics/AbcSize:
   Include: ["app/controllers/*"]
-  Max: 30
+  Max: 200
 Metrics/ClassLength:
-  Max: 150
+  Max: 1500
 Metrics/BlockLength:
   ExcludedMethods: ['describe']
 

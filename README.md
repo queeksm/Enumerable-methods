@@ -1,4 +1,4 @@
-# 💭 Advanced Building Blocks - Bubble Sort
+# 💭 Advanced Building Blocks - Enumerable Methods
 
 This project is part of a series of projects to be completed by students of [Microverse](https://www.microverse.org/ 'The Global School for Remote Software Developers!').
 
@@ -6,7 +6,7 @@ This project consists of creating a copy of the methods on the Enumerable module
 
 ## 🔮 The Project Brief
 
-The assignment can be found in the Odin Project's HTML and CSS course that can be found [here.](https://www.theodinproject.com/courses/ruby-programming/lessons/advanced-building-blocks)
+The assignment can be found in the Odin Project's Ruby course that can be found [here.](https://www.theodinproject.com/courses/ruby-programming/lessons/advanced-building-blocks)
 
 ## 🔨 Technologies & Languages Used
 
