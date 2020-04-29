@@ -113,7 +113,7 @@ module Enumerable #:nodoc: all
         return true if (n.class == param) || (n =~ param)
       end
       false
-    elsif (!param.is_a? Class) && (!param.instance_of? Regexp) && (!param.nil?)
+    elsif (!param.is_a? Class) && (!param.instance_of? Regexp) && !param.nil?
       my_each do |n|
         return true if n == param
       end
@@ -122,7 +122,7 @@ module Enumerable #:nodoc: all
       return false if empty?
 
       my_each do |n|
-        return false if (n.nil?) || (n == false)
+        return false if n.nil? || n == false
       end
       true
     end
@@ -282,3 +282,5 @@ end
 # rubocop: enable Metrics/CyclomaticComplexity
 # rubocop: enable Metrics/MethodLength
 # rubocop: enable Metrics/PerceivedComplexity
+
+p [nil,false,false,nil].my_any?
