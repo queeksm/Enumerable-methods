@@ -282,5 +282,3 @@ end
 # rubocop: enable Metrics/CyclomaticComplexity
 # rubocop: enable Metrics/MethodLength
 # rubocop: enable Metrics/PerceivedComplexity
-
-p [nil,false,false,nil].my_any?
