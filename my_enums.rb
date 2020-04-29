@@ -113,7 +113,7 @@ module Enumerable #:nodoc: all
         return true if (n.class == param) || (n =~ param)
       end
       false
-    elsif (!param.is_a? Class) && (!param.instance_of? Regexp)
+    elsif (!param.is_a? Class) && (!param.instance_of? Regexp) && (!param.nil?)
       my_each do |n|
         return true if n == param
       end
@@ -122,9 +122,9 @@ module Enumerable #:nodoc: all
       return false if empty?
 
       my_each do |n|
-        return true unless n.nil? || n == false
+        return false if (n.nil?) || (n == false)
       end
-      false
+      true
     end
   end
 
