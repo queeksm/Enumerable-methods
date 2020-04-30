@@ -36,9 +36,8 @@ RSpec.describe Enumerable do
     it 'returns an enumerable when no block is passed' do
       expect(arr.my_each_with_index).to be_kind_of(Enumerator)
     end
-
   end
- 
+
   describe '#my_select' do
     emp = []
     it 'returns a new array with all the elements that fulfill the block condition' do
@@ -93,7 +92,7 @@ RSpec.describe Enumerable do
     end
 
     it 'Returns true if any of the object within the array fit the condition' do
-      expect(arr_test.my_any? ( /n/ ) ).to eq(true)
+      expect(arr_test2.my_any?(/f/) ).to eq(true)
     end
 
     it 'If no block is passed it returns true if any of the elements is true or not nil' do
@@ -201,7 +200,7 @@ RSpec.describe Enumerable do
     end
 
     it 'Combines all elements of enum by applying a binary operation, specified by a block or a symbol that names a method or operator.' do
-      longest = %w{ cat sheep bear }.inject do |memo, word|
+      longest = %w[cat sheep bear].inject do |memo, word|
         memo.length > word.length ? memo : word
       end
       expect(longest).to eq('sheep')
