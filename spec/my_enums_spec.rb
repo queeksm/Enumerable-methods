@@ -92,7 +92,7 @@ RSpec.describe Enumerable do
     end
 
     it 'Returns true if any of the object within the array fit the condition' do
-      expect(arr_test2.my_any?(/f/) ).to eq(true)
+      expect(arr_test.my_any?(/n/)).to eq(true)
     end
 
     it 'If no block is passed it returns true if any of the elements is true or not nil' do
